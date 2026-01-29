@@ -1,3 +1,5 @@
 spring:
   application:
-    name: prueba
+    name: taskmaster
+  profiles:
+    active: dev
