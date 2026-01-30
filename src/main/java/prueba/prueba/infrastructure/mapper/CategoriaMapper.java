@@ -2,7 +2,11 @@ package prueba.prueba.infrastructure.mapper;
 
 import org.mapstruct.*;
 import prueba.prueba.domain.categoria.Categoria;
+import prueba.prueba.domain.estado.Estado;
+import prueba.prueba.dto.CategoriaDTO;
+import prueba.prueba.dto.EstadoDTO;
 import prueba.prueba.infrastructure.entity.CategoriaEntity;
+import prueba.prueba.infrastructure.entity.EstadoEntity;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, builder = @Builder(disableBuilder = true))
 public interface CategoriaMapper {
@@ -11,12 +15,10 @@ public interface CategoriaMapper {
 
     CategoriaEntity toCategoriaEntity(Categoria categoria);
 
-    //Categoria dtoToCategoria(CategoriaDTO categoriaDTO);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateDomainToEntity(Categoria categoria, @MappingTarget CategoriaEntity entity);
 
-    //CategoriaDTO toCategiraDTO(Categoria categoria);
+    Categoria dtoToCategoria(CategoriaDTO categoriaDTO);
 
-    //CategoriaDTO toCategoriaDTO(CategoriaEntity categoriaEntity);
-
-    //@BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    //void updateToEntity(CategoriaDTO categoriaDTO, @MappingTarget CategoriaEntity categoriaEntity);
+    CategoriaDTO toCategoriaDTO(Categoria categoria);
 }

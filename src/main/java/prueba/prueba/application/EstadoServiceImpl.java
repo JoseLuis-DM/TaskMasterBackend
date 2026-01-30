@@ -42,7 +42,7 @@ public class EstadoServiceImpl implements EstadoService {
     public EstadoDTO findById(Long id) {
 
         Estado estado = estadoRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Tarea no encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Estado no encontrado"));
         return estadoMapper.toEstadoDTO(estado);
     }
 

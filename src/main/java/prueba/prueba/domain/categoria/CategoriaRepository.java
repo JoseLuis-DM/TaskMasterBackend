@@ -7,6 +7,8 @@ public interface CategoriaRepository {
 
     Categoria guardar(Categoria categoria);
 
+    Categoria update(Categoria categoria);
+
     Optional<Categoria> findById(Long userId);
 
     List<Categoria> findAll();
