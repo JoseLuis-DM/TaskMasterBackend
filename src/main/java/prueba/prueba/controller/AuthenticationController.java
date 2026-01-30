@@ -10,6 +10,7 @@ import prueba.prueba.application.AuthenticationService;
 import prueba.prueba.domain.usuario.Usuario;
 import prueba.prueba.dto.ApiResponse;
 import prueba.prueba.dto.ApiResponseFactory;
+import prueba.prueba.dto.auth.AuthenticationRequest;
 import prueba.prueba.dto.auth.AuthenticationResponse;
 import prueba.prueba.dto.auth.RegisterRequest;
 import prueba.prueba.infrastructure.mapper.UsuarioMapper;
@@ -27,5 +28,11 @@ public class AuthenticationController {
         Usuario usuario = usuarioMapper.registerToUsuario(request);
         AuthenticationResponse authenticationResponse = authenticationService.register(usuario);
         return ApiResponseFactory.creado(authenticationResponse, "Usuario registrado exitosamente");
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<ApiResponse<AuthenticationResponse>> login(@RequestBody AuthenticationRequest request) {
+        AuthenticationResponse response = authenticationService.authenticate(request);
+        return ApiResponseFactory.exito(response, "Usuario logeado exitosamente");
     }
 }
