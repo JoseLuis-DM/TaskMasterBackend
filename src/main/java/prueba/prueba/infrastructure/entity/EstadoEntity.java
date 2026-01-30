@@ -1,8 +1,7 @@
-package prueba.prueba.infrastructure.persistence.estado;
+package prueba.prueba.infrastructure.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import prueba.prueba.infrastructure.persistence.tarea.TareaEntity;
 
 import java.util.ArrayList;
 import java.util.List;

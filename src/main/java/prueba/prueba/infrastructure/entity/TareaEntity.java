@@ -1,10 +1,7 @@
-package prueba.prueba.infrastructure.persistence.tarea;
+package prueba.prueba.infrastructure.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-import prueba.prueba.infrastructure.persistence.categoria.CategoriaEntity;
-import prueba.prueba.infrastructure.persistence.estado.EstadoEntity;
-import prueba.prueba.infrastructure.persistence.usuario.UsuarioEntity;
 
 @Entity
 @Table(name = "tareas")
