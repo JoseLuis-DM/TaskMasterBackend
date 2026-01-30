@@ -10,6 +10,7 @@ import prueba.prueba.dto.UsuarioDTO;
 import prueba.prueba.infrastructure.entity.UsuarioEntity;
 import prueba.prueba.infrastructure.mapper.UsuarioMapper;
 import prueba.prueba.infrastructure.repository.SpringUsuarioRepository;
+import prueba.prueba.infrastructure.security.SecurityUtils;
 
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +23,7 @@ public class UsuarioServiceImpl implements UsuarioService {
     private final UsuarioRepository usuarioRepository;
     private final SpringUsuarioRepository springUsuarioRepository;
     private final PasswordEncoder passwordEncoder;
+    private final SecurityUtils securityUtils;
 
     @Override
     public UsuarioDTO save(UsuarioDTO usuarioDTO) {
@@ -57,6 +59,13 @@ public class UsuarioServiceImpl implements UsuarioService {
 
         return usuarioRepository.findById(id)
                 .map(usuarioMapper::toUsuarioDTO);
+    }
+
+    @Override
+    public UsuarioDTO findMe() {
+
+        UsuarioEntity usuario = securityUtils.getCurrentUser();
+        return usuarioMapper.toUsuarioDTO(usuario);
     }
 
     @Override

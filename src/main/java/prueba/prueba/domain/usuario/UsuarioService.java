@@ -13,6 +13,8 @@ public interface UsuarioService {
 
     Optional<UsuarioDTO> findById(Long id);
 
+    UsuarioDTO findMe();
+
     List<UsuarioDTO> findAll();
 
     void deleteById(Long id);
