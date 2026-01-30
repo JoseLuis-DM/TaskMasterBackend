@@ -3,8 +3,6 @@ package prueba.prueba.domain.estado;
 import org.springframework.http.ResponseEntity;
 import prueba.prueba.dto.ApiResponse;
 import prueba.prueba.dto.EstadoDTO;
-import prueba.prueba.dto.TareaRequestDTO;
-import prueba.prueba.dto.TareaResponseDTO;
 
 import java.util.List;
 

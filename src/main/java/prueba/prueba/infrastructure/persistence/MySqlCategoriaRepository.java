@@ -1,5 +1,6 @@
 package prueba.prueba.infrastructure.persistence;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import prueba.prueba.domain.categoria.Categoria;
@@ -23,6 +24,17 @@ public class MySqlCategoriaRepository implements CategoriaRepository {
         CategoriaEntity entidad = categoriaMapper.toCategoriaEntity(categoria);
         CategoriaEntity guardar = springCategoriaRepository.save(entidad);
         return categoriaMapper.toCategoria(guardar);
+    }
+
+    @Override
+    public Categoria update(Categoria categoria) {
+
+        CategoriaEntity entity = springCategoriaRepository.findById(categoria.getId())
+                .orElseThrow(() -> new EntityNotFoundException("Categoria no encontrada"));
+
+        categoriaMapper.updateDomainToEntity(categoria, entity);
+        CategoriaEntity updated = springCategoriaRepository.save(entity);
+        return categoriaMapper.toCategoria(updated);
     }
 
     @Override
