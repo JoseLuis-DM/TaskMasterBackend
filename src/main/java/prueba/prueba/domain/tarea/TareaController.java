@@ -20,4 +20,6 @@ public interface TareaController {
     ResponseEntity<ApiResponse<List<TareaResponseDTO>>> findMe();
 
     ResponseEntity<ApiResponse<Void>> delete(Long id);
+
+    ResponseEntity<ApiResponse<List<TareaResponseDTO>>> findMyTasks(Long categoriaId, Long estadoId, String search);
 }

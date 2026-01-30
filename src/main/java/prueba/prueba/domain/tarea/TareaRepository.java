@@ -17,4 +17,11 @@ public interface TareaRepository {
     Optional<Tarea> findByIdAndUsuarioId(Long id, Long userId);
 
     List<Tarea> findAllByUsuarioId(Long usuarioId);
+
+    List<Tarea> findByFilters(
+            Long usuarioId,
+            Long categoriaId,
+            Long estadoId,
+            String search
+    );
 }
