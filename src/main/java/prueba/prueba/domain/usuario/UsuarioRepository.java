@@ -1,0 +1,10 @@
+package prueba.prueba.domain.usuario;
+
+import java.util.Optional;
+
+public interface UsuarioRepository {
+
+    Usuario guardar(Usuario usuario);
+
+    Optional<Usuario> findByEmail(String email);
+}
