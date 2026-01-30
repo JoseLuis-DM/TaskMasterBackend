@@ -1,7 +1,6 @@
 package prueba.prueba.domain.usuario;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
 import prueba.prueba.dto.ApiResponse;
 import prueba.prueba.dto.UsuarioDTO;
 

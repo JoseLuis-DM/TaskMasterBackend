@@ -9,7 +9,6 @@ import prueba.prueba.infrastructure.entity.UsuarioEntity;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, builder = @Builder(disableBuilder = true))
 public interface UsuarioMapper {
 
-    @Mapping(target = "tareas", ignore = true)
     Usuario toUsuario(UsuarioEntity usuarioEntity);
 
     UsuarioEntity toUsuarioEntity(Usuario usuario);
