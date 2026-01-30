@@ -1,6 +1,7 @@
 package prueba.prueba.application;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import prueba.prueba.domain.usuario.Rol;
@@ -8,6 +9,8 @@ import prueba.prueba.domain.usuario.Usuario;
 import prueba.prueba.domain.usuario.UsuarioRepository;
 import prueba.prueba.dto.auth.AuthenticationRequest;
 import prueba.prueba.dto.auth.AuthenticationResponse;
+import prueba.prueba.dto.auth.RefreshTokenResponse;
+import prueba.prueba.infrastructure.entity.RefreshTokenEntity;
 import prueba.prueba.infrastructure.entity.UsuarioEntity;
 import prueba.prueba.infrastructure.mapper.UsuarioMapper;
 
@@ -57,6 +60,23 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
+                .build();
+    }
+
+    public RefreshTokenResponse refreshToken(String oldRefreshToken) throws Exception {
+        RefreshTokenEntity oldToken = refreshTokenService.validateRefreshToken(oldRefreshToken);
+        refreshTokenService.revokeByToken(oldToken.getToken());
+
+        RefreshTokenEntity newToken = refreshTokenService.createRefreshToken(oldToken.getUserId());
+
+        Usuario usuario = usuarioRepository.findById(oldToken.getUserId())
+                .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
+
+        String newAccessToken = jwtService.generateToken(usuarioMapper.toUsuarioEntity(usuario));
+
+        return RefreshTokenResponse.builder()
+                .accessToken(newAccessToken)
+                .refreshToken(newToken.getToken())
                 .build();
     }
 }

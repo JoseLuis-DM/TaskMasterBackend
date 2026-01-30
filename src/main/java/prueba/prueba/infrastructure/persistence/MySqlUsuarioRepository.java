@@ -29,4 +29,10 @@ public class MySqlUsuarioRepository implements UsuarioRepository {
         return springUsuarioRepository.findByEmail(email)
                 .map(usuarioMapper::toUsuario);
     }
+
+    @Override
+    public Optional<Usuario> findById(Long userId) {
+        return springUsuarioRepository.findById(userId)
+                .map(usuarioMapper::toUsuario);
+    }
 }

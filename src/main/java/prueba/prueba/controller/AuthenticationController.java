@@ -10,9 +10,7 @@ import prueba.prueba.application.AuthenticationService;
 import prueba.prueba.domain.usuario.Usuario;
 import prueba.prueba.dto.ApiResponse;
 import prueba.prueba.dto.ApiResponseFactory;
-import prueba.prueba.dto.auth.AuthenticationRequest;
-import prueba.prueba.dto.auth.AuthenticationResponse;
-import prueba.prueba.dto.auth.RegisterRequest;
+import prueba.prueba.dto.auth.*;
 import prueba.prueba.infrastructure.mapper.UsuarioMapper;
 
 @RestController
@@ -34,5 +32,10 @@ public class AuthenticationController {
     public ResponseEntity<ApiResponse<AuthenticationResponse>> login(@RequestBody AuthenticationRequest request) {
         AuthenticationResponse response = authenticationService.authenticate(request);
         return ApiResponseFactory.exito(response, "Usuario logeado exitosamente");
+    }
+
+    @PostMapping("/refresh-token")
+    public ResponseEntity<ApiResponse<RefreshTokenResponse>> refreshToken(@RequestBody RefreshTokenRequest request) throws Exception {
+        return ApiResponseFactory.exito(authenticationService.refreshToken(request.getRefreshToken()), "refresh token exitoso");
     }
 }
