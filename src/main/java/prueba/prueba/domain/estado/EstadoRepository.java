@@ -7,6 +7,8 @@ public interface EstadoRepository {
 
     Estado guardar(Estado estado);
 
+    Estado update(Estado estado);
+
     Optional<Estado> findById(Long userId);
 
     List<Estado> findAll();

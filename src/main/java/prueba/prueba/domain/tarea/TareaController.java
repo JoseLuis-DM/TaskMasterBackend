@@ -4,7 +4,6 @@ import org.springframework.http.ResponseEntity;
 import prueba.prueba.dto.ApiResponse;
 import prueba.prueba.dto.TareaRequestDTO;
 import prueba.prueba.dto.TareaResponseDTO;
-import prueba.prueba.dto.UsuarioDTO;
 
 import java.util.List;
 
