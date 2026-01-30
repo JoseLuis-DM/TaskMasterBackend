@@ -2,6 +2,7 @@ package prueba.prueba.infrastructure.mapper;
 
 import org.mapstruct.*;
 import prueba.prueba.domain.estado.Estado;
+import prueba.prueba.dto.EstadoDTO;
 import prueba.prueba.infrastructure.entity.EstadoEntity;
 
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING, builder = @Builder(disableBuilder = true))
@@ -11,12 +12,10 @@ public interface EstadoMapper {
 
     EstadoEntity toEstadoEntity(Estado estado);
 
-    //Estado dtoToEstado(CategoriaDTO categoriaDTO);
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    void updateDomainToEntity(Estado estado, @MappingTarget EstadoEntity entity);
 
-    //EstadoDTO toEstadoDTO(Estado estado);
+    Estado dtoToEstado(EstadoDTO estadoDTO);
 
-    //EstadoDTO toEstadoDTO(EstadoEntity estadoEntity);
-
-    //@BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    //void updateToEntity(EstadoDTO estadoDTO, @MappingTarget EstadoEntity estadoEntity);
+    EstadoDTO toEstadoDTO(Estado estado);
 }
