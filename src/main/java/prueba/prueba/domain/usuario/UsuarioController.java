@@ -14,6 +14,8 @@ public interface UsuarioController {
 
     ResponseEntity<ApiResponse<UsuarioDTO>> findById(Long id);
 
+    ResponseEntity<ApiResponse<UsuarioDTO>> findMe();
+
     ResponseEntity<ApiResponse<List<UsuarioDTO>>> findAll();
 
     ResponseEntity<ApiResponse<Void>> delete(Long id);

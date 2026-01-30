@@ -3,7 +3,6 @@ package prueba.prueba.controller;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import prueba.prueba.domain.usuario.UsuarioController;
@@ -13,7 +12,6 @@ import prueba.prueba.dto.ApiResponseFactory;
 import prueba.prueba.dto.UsuarioDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/usuarios")
@@ -46,6 +44,11 @@ public class UsuarioControllerImpl implements UsuarioController {
         return usuarioService.findById(id)
                 .map(dto -> ApiResponseFactory.exito(dto, "Usuario encontrado"))
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<ApiResponse<UsuarioDTO>> findMe() {
+        return ApiResponseFactory.exito(usuarioService.findMe(), "Usuario autenticado obtenido correctamente");
     }
 
     @GetMapping
