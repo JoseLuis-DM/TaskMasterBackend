@@ -8,6 +8,7 @@ import prueba.prueba.infrastructure.entity.UsuarioEntity;
 import prueba.prueba.infrastructure.mapper.UsuarioMapper;
 import prueba.prueba.infrastructure.repository.SpringUsuarioRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -34,5 +35,16 @@ public class MySqlUsuarioRepository implements UsuarioRepository {
     public Optional<Usuario> findById(Long userId) {
         return springUsuarioRepository.findById(userId)
                 .map(usuarioMapper::toUsuario);
+    }
+
+    @Override
+    public List<Usuario> findAll() {
+        return springUsuarioRepository.findAll()
+                .stream().map(usuarioMapper::toUsuario).toList();
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        springUsuarioRepository.deleteById(id);
     }
 }

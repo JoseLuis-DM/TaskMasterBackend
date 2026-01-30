@@ -1,5 +1,6 @@
 package prueba.prueba.domain.usuario;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface UsuarioRepository {
@@ -9,4 +10,8 @@ public interface UsuarioRepository {
     Optional<Usuario> findByEmail(String email);
 
     Optional<Usuario> findById(Long userId);
+
+    List<Usuario> findAll();
+
+    void deleteById(Long id);
 }
