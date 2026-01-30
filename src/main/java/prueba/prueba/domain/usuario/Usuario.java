@@ -4,10 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import prueba.prueba.domain.tarea.Tarea;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,7 +17,4 @@ public class Usuario {
     private String email;
     private String password;
     private Rol rol;
-
-    @Builder.Default
-    private List<Tarea> tareas = new ArrayList<>();
 }

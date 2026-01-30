@@ -17,7 +17,4 @@ public class Estado {
 
     private Long id;
     private String nombre;
-
-    @Builder.Default
-    private List<Tarea> tarea = new ArrayList<>();
 }
