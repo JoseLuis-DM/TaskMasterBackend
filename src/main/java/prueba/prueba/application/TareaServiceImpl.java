@@ -147,4 +147,21 @@ public class TareaServiceImpl implements TareaService {
 
         tareaRepository.deleteById(id);
     }
+
+    @Override
+    @Transactional
+    public List<TareaResponseDTO> findMyTasks(Long categoriaId, Long estadoId, String search) {
+
+        UsuarioEntity usuario = securityUtils.getCurrentUser();
+
+        return tareaRepository.findByFilters(
+                        usuario.getId(),
+                        categoriaId,
+                        estadoId,
+                        search
+                )
+                .stream()
+                .map(tareaMapper::domainToResponse)
+                .toList();
+    }
 }

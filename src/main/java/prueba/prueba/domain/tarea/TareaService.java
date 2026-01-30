@@ -18,4 +18,6 @@ public interface TareaService {
     List<TareaResponseDTO> findMe();
 
     void deleteById(Long id);
+
+    List<TareaResponseDTO> findMyTasks(Long categoriaId, Long estadoId, String search);
 }

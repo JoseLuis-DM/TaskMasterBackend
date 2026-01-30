@@ -40,7 +40,7 @@ public class TareaControllerImpl implements TareaController {
         return ApiResponseFactory.exito(tarea, "Tarea encontrada");
     }
 
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<ApiResponse<List<TareaResponseDTO>>> findAll() {
         List<TareaResponseDTO> tareas = tareaService.findAll();
         return ApiResponseFactory.exito(tareas, "Tareas encontradas");
@@ -55,5 +55,17 @@ public class TareaControllerImpl implements TareaController {
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         tareaService.deleteById(id);
         return ApiResponseFactory.exito(null, "Tarea eliminada correctamente");
+    }
+
+    @GetMapping
+    public ResponseEntity<ApiResponse<List<TareaResponseDTO>>> findMyTasks(
+            @RequestParam(required = false) Long categoriaId,
+            @RequestParam(required = false)Long estadoId,
+            @RequestParam(required = false)String search
+    ) {
+        return ApiResponseFactory.exito(
+                tareaService.findMyTasks(categoriaId, estadoId, search),
+                "Tareas obtenidas correctamente"
+        );
     }
 }
