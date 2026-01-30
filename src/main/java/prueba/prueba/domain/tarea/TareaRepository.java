@@ -1,5 +1,6 @@
 package prueba.prueba.domain.tarea;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -14,4 +15,6 @@ public interface TareaRepository {
     void deleteById(Long id);
 
     Optional<Tarea> findByIdAndUsuarioId(Long id, Long userId);
+
+    List<Tarea> findAllByUsuarioId(Long usuarioId);
 }

@@ -4,7 +4,6 @@ import prueba.prueba.dto.TareaRequestDTO;
 import prueba.prueba.dto.TareaResponseDTO;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface TareaService {
 
@@ -15,6 +14,8 @@ public interface TareaService {
     TareaResponseDTO findById(Long id);
 
     List<TareaResponseDTO> findAll();
+
+    List<TareaResponseDTO> findMe();
 
     void deleteById(Long id);
 }
