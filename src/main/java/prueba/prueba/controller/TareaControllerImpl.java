@@ -46,6 +46,11 @@ public class TareaControllerImpl implements TareaController {
         return ApiResponseFactory.exito(tareas, "Tareas encontradas");
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<ApiResponse<List<TareaResponseDTO>>> findMe() {
+        return ApiResponseFactory.exito(tareaService.findMe(), "Tareas del usuario obtenidas correctamente");
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         tareaService.deleteById(id);

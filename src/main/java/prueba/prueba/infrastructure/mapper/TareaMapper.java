@@ -6,21 +6,23 @@ import prueba.prueba.dto.TareaRequestDTO;
 import prueba.prueba.dto.TareaResponseDTO;
 import prueba.prueba.infrastructure.entity.TareaEntity;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, builder = @Builder(disableBuilder = true))
+@Mapper(
+        componentModel = MappingConstants.ComponentModel.SPRING,
+        uses = {
+                UsuarioMapper.class,
+                CategoriaMapper.class,
+                EstadoMapper.class
+        },
+        builder = @Builder(disableBuilder = true)
+)
 public interface TareaMapper {
 
-    @Mapping(target = "usuario", source = "usuario")
-    @Mapping(target = "categoria", source = "categoria")
-    @Mapping(target = "estado", source = "estado")
     Tarea toTarea(TareaEntity entity);
 
-    @Mapping(target = "usuario", source = "usuario")
-    @Mapping(target = "categoria", source = "categoria")
-    @Mapping(target = "estado", source = "estado")
     TareaEntity toEntity(Tarea tarea);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "usuario", ignore = true) // se asigna en el service
+    @Mapping(target = "usuario", ignore = true)
     @Mapping(target = "categoria", ignore = true)
     @Mapping(target = "estado", ignore = true)
     Tarea fromRequest(TareaRequestDTO dto);
@@ -28,5 +30,7 @@ public interface TareaMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateFromDto(TareaRequestDTO dto, @MappingTarget Tarea tarea);
 
+    @Mapping(target = "categoria", source = "categoria.nombre")
+    @Mapping(target = "estado", source = "estado.nombre")
     TareaResponseDTO domainToResponse(Tarea tarea);
 }

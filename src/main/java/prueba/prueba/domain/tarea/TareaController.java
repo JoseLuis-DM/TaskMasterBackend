@@ -17,5 +17,7 @@ public interface TareaController {
 
     ResponseEntity<ApiResponse<List<TareaResponseDTO>>> findAll();
 
+    ResponseEntity<ApiResponse<List<TareaResponseDTO>>> findMe();
+
     ResponseEntity<ApiResponse<Void>> delete(Long id);
 }

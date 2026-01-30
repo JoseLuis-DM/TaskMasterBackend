@@ -127,6 +127,18 @@ public class TareaServiceImpl implements TareaService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    @Transactional
+    public List<TareaResponseDTO> findMe() {
+
+        UsuarioEntity usuario = securityUtils.getCurrentUser();
+
+        return tareaRepository.findAllByUsuarioId(usuario.getId())
+                .stream()
+                .map(tareaMapper::domainToResponse)
+                .toList();
+    }
+
     @Transactional
     public void deleteById(Long id) {
 

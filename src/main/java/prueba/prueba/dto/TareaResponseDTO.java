@@ -11,6 +11,6 @@ public class TareaResponseDTO {
     private Long id;
     private String titulo;
     private String descripcion;
-    private Long categoriaId;
-    private Long estadoId;
+    private String categoria;
+    private String estado;
 }

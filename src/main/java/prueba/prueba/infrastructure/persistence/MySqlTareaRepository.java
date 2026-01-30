@@ -48,4 +48,12 @@ public class MySqlTareaRepository implements TareaRepository {
                 .findByIdAndUsuario_Id(id, userId)
                 .map(tareaMapper::toTarea);
     }
+
+    @Override
+    public List<Tarea> findAllByUsuarioId(Long usuarioId) {
+        return springTareaRepository.findAllByUsuarioId(usuarioId)
+                .stream()
+                .map(tareaMapper::toTarea)
+                .toList();
+    }
 }
