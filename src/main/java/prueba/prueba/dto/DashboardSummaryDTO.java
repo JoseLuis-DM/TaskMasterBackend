@@ -12,6 +12,7 @@ public record DashboardSummaryDTO(
         Long tareasPendientes,
         Double porcentajesCompletadas,
         Double porcentajesPendientes,
+        Double porcentajesAtrasadas,
         List<CategoriaDTO> bloquesPorCategoria,
         List<TareaResponseDTO> tareasRecientes,
         List<PorcentajeCategoriaDTO> porcentajesPorCategoria

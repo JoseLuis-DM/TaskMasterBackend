@@ -7,6 +7,7 @@ import prueba.prueba.domain.usuario.Usuario;
 import prueba.prueba.domain.usuario.UsuarioRepository;
 import prueba.prueba.domain.usuario.UsuarioService;
 import prueba.prueba.dto.UsuarioDTO;
+import prueba.prueba.dto.UsuarioPerfilResponseDTO;
 import prueba.prueba.infrastructure.entity.UsuarioEntity;
 import prueba.prueba.infrastructure.mapper.UsuarioMapper;
 import prueba.prueba.infrastructure.repository.SpringUsuarioRepository;
@@ -62,10 +63,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public UsuarioDTO findMe() {
+    public UsuarioPerfilResponseDTO findMe() {
 
         UsuarioEntity usuario = securityUtils.getCurrentUser();
-        return usuarioMapper.toUsuarioDTO(usuario);
+        return usuarioMapper.toUsuarioPerfilResponseDTO(usuario);
     }
 
     @Override

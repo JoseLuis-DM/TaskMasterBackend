@@ -11,6 +11,7 @@ import prueba.prueba.domain.usuario.UsuarioService;
 import prueba.prueba.dto.ApiResponse;
 import prueba.prueba.dto.ApiResponseFactory;
 import prueba.prueba.dto.UsuarioDTO;
+import prueba.prueba.dto.UsuarioPerfilResponseDTO;
 
 import java.util.List;
 
@@ -48,7 +49,7 @@ public class UsuarioControllerImpl implements UsuarioController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity<ApiResponse<UsuarioDTO>> findMe() {
+    public ResponseEntity<ApiResponse<UsuarioPerfilResponseDTO>> findMe() {
         return ApiResponseFactory.exito(usuarioService.findMe(), "Usuario autenticado obtenido correctamente");
     }
 

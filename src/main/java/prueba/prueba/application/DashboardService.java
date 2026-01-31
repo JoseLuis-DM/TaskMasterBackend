@@ -29,9 +29,11 @@ public class DashboardService {
         Long totalTareas = tareaRepository.countTotalTareas(usuarioId);
         Long tareasCompletadas = tareaRepository.countTareasCompletadas(usuarioId);
         Long tareasPendientes = tareaRepository.countTareasPendientes(usuarioId);
+        Long tareasAtrasadas = tareaRepository.countTareasAtrasadas(usuarioId);
 
         double porcentajeCompletadas = totalTareas == 0 ? 0 : (double) tareasCompletadas / totalTareas * 100;
         double porcentajePendientes = totalTareas == 0 ? 0 : (double) tareasPendientes / totalTareas * 100;
+        double porcentajeAtrasadas = totalTareas == 0 ? 0 : (double) tareasAtrasadas / totalTareas * 100;
 
         List<Object[]> resultadosPorCategoria = tareaRepository.countTareasPorCategoria(usuarioId);
         List<CategoriaDTO> bloquesPorCategoria = resultadosPorCategoria.stream()
@@ -69,6 +71,7 @@ public class DashboardService {
                 .tareasPendientes(tareasPendientes)
                 .porcentajesCompletadas(porcentajeCompletadas)
                 .porcentajesPendientes(porcentajePendientes)
+                .porcentajesAtrasadas(porcentajeAtrasadas)
                 .bloquesPorCategoria(bloquesPorCategoria)
                 .porcentajesPorCategoria(porcentajesPorCategoria)
                 .tareasRecientes(tareasRecientes)
