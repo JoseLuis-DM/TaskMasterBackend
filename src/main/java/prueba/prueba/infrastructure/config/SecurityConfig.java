@@ -14,13 +14,14 @@ import prueba.prueba.infrastructure.filter.JwtAuthFilter;
 import prueba.prueba.infrastructure.persistence.MySqlUsuarioRepository;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.core.userdetails.User;
+import prueba.prueba.infrastructure.repository.SpringUsuarioRepository;
 
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    private final MySqlUsuarioRepository usuarioRepository; // para UserDetailsService
+    private final MySqlUsuarioRepository usuarioRepository;
+    private final SpringUsuarioRepository springUsuarioRepository;
 
     @Bean
     public SecurityFilterChain securityFilterChain(
@@ -56,13 +57,7 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return email -> usuarioRepository.findByEmail(email)
-                .map(usuario -> User.builder()
-                        .username(usuario.getEmail())
-                        .password(usuario.getPassword())
-                        .roles(String.valueOf(usuario.getRol()))
-                        .build()
-                )
+        return email -> springUsuarioRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
     }
 }
