@@ -14,4 +14,6 @@ public interface EstadoRepository {
     List<Estado> findAll();
 
     void deleteById(Long id);
+
+    Optional<Estado> findByNombre(String nombre);
 }

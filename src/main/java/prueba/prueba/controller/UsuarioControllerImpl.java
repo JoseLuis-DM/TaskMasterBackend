@@ -4,6 +4,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import prueba.prueba.domain.usuario.UsuarioController;
 import prueba.prueba.domain.usuario.UsuarioService;
@@ -51,6 +52,7 @@ public class UsuarioControllerImpl implements UsuarioController {
         return ApiResponseFactory.exito(usuarioService.findMe(), "Usuario autenticado obtenido correctamente");
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<ApiResponse<List<UsuarioDTO>>> findAll() {
         List<UsuarioDTO> usuariosDTO = usuarioService.findAll();

@@ -22,4 +22,6 @@ public interface TareaController {
     ResponseEntity<ApiResponse<Void>> delete(Long id);
 
     ResponseEntity<ApiResponse<List<TareaResponseDTO>>> findMyTasks(Long categoriaId, Long estadoId, String search);
+
+    ResponseEntity<ApiResponse<TareaResponseDTO>> cambiarEstado(Long tareaId, String nuevoEstado);
 }

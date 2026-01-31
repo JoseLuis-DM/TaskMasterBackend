@@ -68,4 +68,13 @@ public class TareaControllerImpl implements TareaController {
                 "Tareas obtenidas correctamente"
         );
     }
+
+    @PatchMapping("/{id}/estado")
+    public ResponseEntity<ApiResponse<TareaResponseDTO>> cambiarEstado(
+            @PathVariable("id") Long tareaId,
+            @RequestParam String nuevoEstado
+    ) {
+        TareaResponseDTO response = tareaService.cambiarEstado(tareaId, nuevoEstado);
+        return ApiResponseFactory.exito(response, "Estado actualizado correctamente");
+    }
 }
