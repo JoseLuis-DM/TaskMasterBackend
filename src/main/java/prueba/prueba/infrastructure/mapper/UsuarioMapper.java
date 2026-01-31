@@ -1,6 +1,7 @@
 package prueba.prueba.infrastructure.mapper;
 
 import org.mapstruct.*;
+import prueba.prueba.dto.UsuarioPerfilResponseDTO;
 import prueba.prueba.domain.usuario.Usuario;
 import prueba.prueba.dto.UsuarioDTO;
 import prueba.prueba.dto.auth.RegisterRequest;
@@ -22,6 +23,8 @@ public interface UsuarioMapper {
 
     @Mapping(target = "password", ignore = true)
     UsuarioDTO toUsuarioDTO(UsuarioEntity usuarioEntity);
+
+    UsuarioPerfilResponseDTO toUsuarioPerfilResponseDTO(UsuarioEntity usuarioEntity);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     void updateToEntity(UsuarioDTO usuarioDTO, @MappingTarget UsuarioEntity usuarioEntity);

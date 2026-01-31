@@ -1,5 +1,6 @@
 package prueba.prueba.domain.usuario;
 
+import prueba.prueba.dto.UsuarioPerfilResponseDTO;
 import prueba.prueba.dto.UsuarioDTO;
 
 import java.util.List;
@@ -13,7 +14,7 @@ public interface UsuarioService {
 
     Optional<UsuarioDTO> findById(Long id);
 
-    UsuarioDTO findMe();
+    UsuarioPerfilResponseDTO findMe();
 
     List<UsuarioDTO> findAll();
 

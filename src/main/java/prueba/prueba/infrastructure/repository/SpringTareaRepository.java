@@ -25,11 +25,14 @@ public interface SpringTareaRepository extends JpaRepository<TareaEntity, Long>,
     @Query("SELECT COUNT(t) FROM TareaEntity t WHERE t.usuario.id = :usuarioId")
     Long countTotalTareas(@Param("usuarioId") Long usuarioId);
 
-    @Query("SELECT COUNT(t) FROM TareaEntity t WHERE t.usuario.id = :usuarioId AND t.estado.nombre = 'Completado'")
+    @Query("SELECT COUNT(t) FROM TareaEntity t WHERE t.usuario.id = :usuarioId AND t.estado.nombre = 'Completada'")
     Long countTareasCompletadas(@Param("usuarioId") Long usuarioId);
 
     @Query("SELECT COUNT(t) FROM TareaEntity t WHERE t.usuario.id = :usuarioId AND t.estado.nombre = 'Pendiente'")
     Long countTareasPendientes(@Param("usuarioId") Long usuarioId);
+
+    @Query("SELECT COUNT(t) FROM TareaEntity t WHERE t.usuario.id = :usuarioId AND t.estado.nombre = 'Atrasada'")
+    Long countTareasAtrasadas(@Param("usuarioId") Long usuarioId);
 
     List<TareaEntity> findTop6ByUsuarioIdOrderByLimiteDesc(Long usuarioId);
 }
