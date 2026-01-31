@@ -2,6 +2,7 @@ package prueba.prueba.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,7 @@ public class AuthenticationController {
     @PostMapping("/register")
     public ResponseEntity<ApiResponse<AuthenticationResponse>> register(@RequestBody RegisterRequest request) {
         Usuario usuario = usuarioMapper.registerToUsuario(request);
-        AuthenticationResponse authenticationResponse = authenticationService.register(usuario);
+        AuthenticationResponse authenticationResponse = authenticationService.register(usuario, false);
         return ApiResponseFactory.creado(authenticationResponse, "Usuario registrado exitosamente");
     }
 
@@ -37,5 +38,13 @@ public class AuthenticationController {
     @PostMapping("/refresh-token")
     public ResponseEntity<ApiResponse<RefreshTokenResponse>> refreshToken(@RequestBody RefreshTokenRequest request) throws Exception {
         return ApiResponseFactory.exito(authenticationService.refreshToken(request.getRefreshToken()), "refresh token exitoso");
+    }
+
+    @PreAuthorize("hasRole('ADMIN')")
+    @PostMapping("/admin/register")
+    public ResponseEntity<ApiResponse<AuthenticationResponse>> registerAdmin(@RequestBody RegisterRequest request) {
+        Usuario usuario = usuarioMapper.registerToUsuario(request);
+        AuthenticationResponse authenticationResponse = authenticationService.register(usuario, true);
+        return ApiResponseFactory.creado(authenticationResponse, "Admin registrado exitosamente");
     }
 }

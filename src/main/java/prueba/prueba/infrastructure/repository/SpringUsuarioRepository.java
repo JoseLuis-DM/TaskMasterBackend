@@ -2,6 +2,7 @@ package prueba.prueba.infrastructure.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
+import prueba.prueba.domain.usuario.Rol;
 import prueba.prueba.infrastructure.entity.UsuarioEntity;
 
 import java.util.Optional;
@@ -10,4 +11,6 @@ import java.util.Optional;
 public interface SpringUsuarioRepository extends JpaRepository<UsuarioEntity, Long> {
 
     Optional<UsuarioEntity> findByEmail(String email);
+
+    boolean existsByRol(Rol rol);
 }

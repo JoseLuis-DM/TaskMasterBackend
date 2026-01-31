@@ -2,6 +2,7 @@ package prueba.prueba.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import prueba.prueba.domain.estado.EstadoController;
 import prueba.prueba.domain.estado.EstadoService;
@@ -18,12 +19,14 @@ public class EstadoControllerImpl implements EstadoController {
 
     private final EstadoService estadoService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<ApiResponse<EstadoDTO>> register(@RequestBody EstadoDTO estadoDTO) {
         EstadoDTO estado = estadoService.save(estadoDTO);
         return ApiResponseFactory.creado(estado, "Estado creado correctamente");
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<EstadoDTO>> update(@PathVariable Long id, @RequestBody EstadoDTO estadoDTO) {
         EstadoDTO estado = estadoService.update(id, estadoDTO);
@@ -42,6 +45,7 @@ public class EstadoControllerImpl implements EstadoController {
         return ApiResponseFactory.exito(estados, "Estados encontrados");
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         estadoService.delete(id);

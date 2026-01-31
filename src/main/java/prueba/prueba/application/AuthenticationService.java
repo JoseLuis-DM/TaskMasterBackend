@@ -24,14 +24,19 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final RefreshTokenService refreshTokenService;
 
-    public AuthenticationResponse register(Usuario usuario) {
+    public AuthenticationResponse register(Usuario usuario, boolean admin) {
 
         if (usuarioRepository.findByEmail(usuario.getEmail()).isPresent()) {
             throw new IllegalArgumentException("El usuario ya existe");
         }
 
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
-        usuario.setRol(Rol.USER);
+
+        if (admin) {
+            usuario.setRol(Rol.ADMIN);
+        } else {
+            usuario.setRol(Rol.USER);
+        }
 
         Usuario guardado = usuarioRepository.guardar(usuario);
 

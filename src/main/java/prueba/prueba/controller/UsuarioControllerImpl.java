@@ -59,6 +59,7 @@ public class UsuarioControllerImpl implements UsuarioController {
         return ApiResponseFactory.exito(usuariosDTO, "Usuarios encontrados");
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         try {
