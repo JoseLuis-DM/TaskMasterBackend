@@ -17,6 +17,7 @@ import prueba.prueba.infrastructure.entity.TareaEntity;
 )
 public interface TareaMapper {
 
+
     Tarea toTarea(TareaEntity entity);
 
     TareaEntity toEntity(Tarea tarea);
