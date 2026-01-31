@@ -20,4 +20,6 @@ public interface TareaService {
     void deleteById(Long id);
 
     List<TareaResponseDTO> findMyTasks(Long categoriaId, Long estadoId, String search);
+
+    TareaResponseDTO cambiarEstado(Long tareaId, String nuevoEstado);
 }

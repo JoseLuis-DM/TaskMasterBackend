@@ -8,17 +8,22 @@ import org.springframework.stereotype.Service;
 import prueba.prueba.domain.categoria.Categoria;
 import prueba.prueba.domain.categoria.CategoriaRepository;
 import prueba.prueba.domain.estado.Estado;
+import prueba.prueba.domain.estado.EstadoNombre;
 import prueba.prueba.domain.estado.EstadoRepository;
 import prueba.prueba.domain.tarea.Tarea;
 import prueba.prueba.domain.tarea.TareaRepository;
 import prueba.prueba.domain.tarea.TareaService;
+import prueba.prueba.domain.usuario.Rol;
 import prueba.prueba.domain.usuario.Usuario;
 import prueba.prueba.domain.usuario.UsuarioRepository;
 import prueba.prueba.dto.TareaRequestDTO;
 import prueba.prueba.dto.TareaResponseDTO;
+import prueba.prueba.infrastructure.entity.EstadoEntity;
 import prueba.prueba.infrastructure.entity.TareaEntity;
 import prueba.prueba.infrastructure.entity.UsuarioEntity;
+import prueba.prueba.infrastructure.mapper.EstadoMapper;
 import prueba.prueba.infrastructure.mapper.TareaMapper;
+import prueba.prueba.infrastructure.repository.SpringEstadoRepository;
 import prueba.prueba.infrastructure.repository.SpringTareaRepository;
 import prueba.prueba.infrastructure.security.SecurityUtils;
 
@@ -32,10 +37,11 @@ public class TareaServiceImpl implements TareaService {
     private final TareaRepository tareaRepository;
     private final SpringTareaRepository springTareaRepository;
     private final TareaMapper tareaMapper;
-    private final UsuarioRepository usuarioRepository;
     private final CategoriaRepository categoriaRepository;
     private final EstadoRepository estadoRepository;
     private final SecurityUtils securityUtils;
+    private final SpringEstadoRepository springEstadoRepository;
+    private final EstadoMapper estadoMapper;
 
     @Override
     @Transactional
@@ -163,5 +169,35 @@ public class TareaServiceImpl implements TareaService {
                 .stream()
                 .map(tareaMapper::domainToResponse)
                 .toList();
+    }
+
+    @Transactional
+    public TareaResponseDTO cambiarEstado(Long tareaId, String nuevoEstadoStr) {
+
+        UsuarioEntity currentUser = securityUtils.getCurrentUser();
+
+        TareaEntity tarea = springTareaRepository.findById(tareaId)
+                .orElseThrow(() -> new EntityNotFoundException("Tarea no encontrada"));
+
+        if (!tarea.getUsuario().getId().equals(currentUser.getId())
+                && !currentUser.getRol().equals(Rol.ADMIN)) {
+            throw new AccessDeniedException("No tienes permiso para cambiar esta tarea");
+        }
+
+        EstadoNombre estadoEnum;
+        try {
+            estadoEnum = EstadoNombre.valueOf(nuevoEstadoStr.toUpperCase());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Estado inválido: " + nuevoEstadoStr);
+        }
+
+        EstadoEntity nuevoEstado = springEstadoRepository.findByNombre(estadoEnum.name())
+                .orElseThrow(() -> new EntityNotFoundException("Estado no encontrado en DB"));
+
+        tarea.setEstado(nuevoEstado);
+
+        tareaRepository.guardar(tareaMapper.toTarea(tarea));
+
+        return tareaMapper.domainToResponse(tareaMapper.toTarea(tarea));
     }
 }

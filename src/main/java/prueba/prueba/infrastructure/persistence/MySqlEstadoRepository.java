@@ -52,4 +52,10 @@ public class MySqlEstadoRepository implements EstadoRepository {
     public void deleteById(Long id) {
         springEstadoRepository.deleteById(id);
     }
+
+    @Override
+    public Optional<Estado> findByNombre(String nombre) {
+        return springEstadoRepository.findByNombre(nombre)
+                .map(estadoMapper::toEstado);
+    }
 }
