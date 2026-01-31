@@ -49,7 +49,7 @@ public class UsuarioEntity implements UserDetails {
         Set<SimpleGrantedAuthority> authorities = new HashSet<>();
 
         if (rol != null) {
-            authorities.add(new SimpleGrantedAuthority("ROL_" + rol.name()));
+            authorities.add(new SimpleGrantedAuthority("ROLE_" + rol.name()));
         }
 
         return authorities;
