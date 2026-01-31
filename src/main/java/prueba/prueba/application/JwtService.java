@@ -39,7 +39,7 @@ public class JwtService {
         Map<String, Object> claims = new HashMap<>();
 
         List<String> roles = userDetails.getAuthorities().stream()
-                .filter(auth -> auth.getAuthority().startsWith("ROL_"))
+                .filter(auth -> auth.getAuthority().startsWith("ROLE_"))
                 .map(GrantedAuthority::getAuthority)
                 .toList();
 
