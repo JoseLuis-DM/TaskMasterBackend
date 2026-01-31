@@ -3,6 +3,8 @@ package prueba.prueba.infrastructure.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "tareas")
 @Getter
@@ -33,4 +35,7 @@ public class TareaEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "estado_id", nullable = false)
     private EstadoEntity estado;
+
+    @Column(name = "limite")
+    private LocalDate limite;
 }

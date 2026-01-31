@@ -8,6 +8,8 @@ import prueba.prueba.domain.categoria.Categoria;
 import prueba.prueba.domain.estado.Estado;
 import prueba.prueba.domain.usuario.Usuario;
 
+import java.time.LocalDate;
+
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Data
@@ -20,4 +22,5 @@ public class Tarea {
     private Usuario usuario;
     private Categoria categoria;
     private Estado estado;
+    private LocalDate limite;
 }

@@ -21,7 +21,6 @@ public class SecurityUtils {
             throw new IllegalStateException("Usuario no autenticado");
         }
 
-        // auth.getName() devuelve el username/email del JWT
         String username = auth.getName();
 
         return usuarioRepository.findByEmail(username)
