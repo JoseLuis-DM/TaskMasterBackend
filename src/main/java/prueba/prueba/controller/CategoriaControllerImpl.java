@@ -2,6 +2,7 @@ package prueba.prueba.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import prueba.prueba.domain.categoria.CategoriaController;
 import prueba.prueba.domain.categoria.CategoriaService;
@@ -18,12 +19,14 @@ public class CategoriaControllerImpl implements CategoriaController {
 
     private final CategoriaService categoriaService;
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<ApiResponse<CategoriaDTO>> register(@RequestBody CategoriaDTO categoriaDTO) {
         CategoriaDTO categoria = categoriaService.save(categoriaDTO);
         return ApiResponseFactory.creado(categoria, "Categoria creada correctamente");
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
     public ResponseEntity<ApiResponse<CategoriaDTO>> update(
             @PathVariable Long id,
@@ -45,6 +48,7 @@ public class CategoriaControllerImpl implements CategoriaController {
         return ApiResponseFactory.exito(categorias, "Categorías encontradas");
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/{id}")
     public ResponseEntity<ApiResponse<Void>> delete(@PathVariable Long id) {
         categoriaService.delete(id);
